@@ -14,7 +14,9 @@ if (NOT LIBDBUS_FOUND)
     message (WARNING "D-Bus library or header not found")
 endif ()
 
-include_directories (${DBUS_INCLUDE_DIR} ${DBUS_ARCH_INCLUDE_DIR} ${LIBCSDK_INCLUDE_DIR})
+set(IOTECH_DIR "/opt/iotech/iot/1.5")
+
+include_directories (${DBUS_INCLUDE_DIR} ${DBUS_ARCH_INCLUDE_DIR} ${LIBCSDK_INCLUDE_DIR} ${IOTECH_DIR}/include)
 
 # Set additional C compiler flags
 if (DEFINED CMAKE_C_COMPILER_ID)
@@ -36,4 +38,4 @@ add_executable(device-ble ${C_FILES})
 FILE(STRINGS "VERSION" VERSION_NUMBER)
 
 target_compile_definitions(device-ble PRIVATE VERSION="${VERSION_NUMBER}")
-target_link_libraries(device-ble PUBLIC ${DBUS_LIBRARIES} PRIVATE ${LIBCSDK_LIBRARIES})
+target_link_libraries(device-ble PUBLIC ${DBUS_LIBRARIES} PRIVATE ${LIBCSDK_LIBRARIES} ${IOTECH_DIR}/lib)
